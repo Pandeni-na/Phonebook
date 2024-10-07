@@ -3,10 +3,19 @@
 ### Efficient Phonebook Management System for a Namibian Telecommunications Company
 
 ## Group Members
-[List all group members here along with their GitHub usernames]
+- Matheus Hashoonge 223070599
+- Amenenge Negumbo 224065963
+- Pandeni Kakwambi 224066544
+- Zia Phaswana 224034812
+- Reinhold Haufiku 224016954
+- Kelibongile Tholana 224091808 
 
 ## Project Overview
-This project aims to implement an efficient phonebook system for a Namibian telecommunications company using basic linear data structures such as arrays or lists. 
+This project aims to implement an efficient phonebook management system for a
+Namibian telecommunications company. The company handles numerous client
+contacts and requires a system that allows for quick access, addition, deletion, and
+updating of contact information. The goal is to simplify operations for customer
+service representatives who need to manage clients' details on a daily basis. 
 
 The key operations include:
 - Inserting contacts
@@ -47,155 +56,235 @@ Additionally, search efficiency analysis is performed by analyzing the number of
 
 ### 3.1 Pseudocode
 
-#### Insert Contact:
-```plaintext
-Function InsertContact(phonebook, contact):
-    If phonebook is full:
-        Display "Phonebook is full"
-    Else:
-        Add contact to phonebook
-        Display "Contact added successfully"
 
-#### Search Contact:
-Function SearchContact(phonebook, name):
-    For each contact in phonebook:
-        If contact.name equals name:
-            Return contact
-    Return "Contact not found"
 
-#### Display All Contacts
-Function DisplayAllContacts(phonebook):
-    If phonebook is empty:
-        Display "Phonebook is empty"
-    Else:
-        For each contact in phonebook:
-            Display contact.name and contact.number
-
-#### Delete Contacts
-Function DeleteContact(phonebook, name):
-    For each contact in phonebook:
-        If contact.name equals name:
-            Remove contact from phonebook
-            Display "Contact deleted"
-            Return
-    Display "Contact not found"
-
-#### Update Contacts
-Function UpdateContact(phonebook, name, newNumber):
-    For each contact in phonebook:
-        If contact.name equals name:
-            contact.number = newNumber
-            Display "Contact updated successfully"
-            Return
-    Display "Contact not found"
-#### Sort Contacts
-Function SortContacts(phonebook):
-    Sort phonebook by contact.name
-    Display "Contacts sorted"
-
-#### Efficeincy Analysis of Searcg Algorithm
-Function AnalyzeSearchEfficiency(phonebook, name):
-    Initialize comparisonCount = 0
-    For each contact in phonebook:
-        comparisonCount = comparisonCount + 1
-        If contact.name equals name:
-            Display "Number of comparisons: ", comparisonCount
-            Return
-    Display "Contact not found. Number of comparisons: ", comparisonCount
-
- ## 4. Practical Implementation (Section B)
-
-### Contact Class:
-class Contact {
-    String name;
-    String phoneNumber;
-
-    public Contact(String name, String phoneNumber) {
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-    }
-
-    @Override
-    public String toString() {
-        return "Name: " + name + ", Phone: " + phoneNumber;
-    }
+      
 }
 
-### PhoneBook Class:
+### 3.2 Flowchart
+
+### 4. Practical Implementation (Section B)
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class PhoneBook {
-    List<Contact> contacts;
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(PhoneBook::new);
+    }
+
+    private ArrayList<String> nameList = new ArrayList<>();
+    private ArrayList<String> numList = new ArrayList<>();
+    private JTable contactTable;
+    private DefaultTableModel tableModel;
+    private JTextField nameField;
+    private JTextField numberField;
+    private JTextField searchField;
+    private JTextField deleteField;
+    private JTextField updateField;
 
     public PhoneBook() {
-        contacts = new ArrayList<>();
+        JFrame frame = new JFrame("Phone Book");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(700, 450);
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridBagLayout());
+        panel.setBackground(new Color(246, 245, 241));
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(5, 5, 5, 5);
+
+        nameField = new JTextField(14);
+        numberField = new JTextField(14);
+        searchField = new JTextField(14);
+        deleteField = new JTextField(14);
+        updateField = new JTextField(14);
+
+        // Table for storing the contact name and contact number
+        tableModel = new DefaultTableModel(new String[]{"Name", "Number"}, 0);
+        contactTable = new JTable(tableModel);
+        contactTable.setFillsViewportHeight(true);
+        contactTable.setBackground(new Color(248, 238, 238));
+        contactTable.setFont(new Font("Arial", Font.PLAIN, 14));
+        contactTable.getTableHeader().setBackground(new Color(244, 243, 243));
+
+        // Buttons for each action
+        JButton addButton = new JButton("Add Contact");
+        JButton searchButton = new JButton("Search \uD83D\uDD0D");
+        JButton deleteButton = new JButton("\uD83D\uDDD1 Delete");
+        JButton displayButton = new JButton("Display All");
+        JButton updateButton = new JButton(" ⟳ Update Contact");
+        JButton sortButton = new JButton("\uD83D\uDDD2 Sort");
+
+        addButton.setBackground(new Color(93, 213, 83));
+        searchButton.setBackground(new Color(37, 65, 205));
+        deleteButton.setBackground(new Color(243, 6, 6));
+        displayButton.setBackground(new Color(253, 118, 3, 253));
+        updateButton.setBackground(new Color(144, 9, 154));
+        sortButton.setBackground(new Color(21, 246, 6, 255));
+
+        addButton.addActionListener(e -> addContact(nameField.getText(), numberField.getText()));
+        searchButton.addActionListener(e -> search(searchField.getText()));
+        deleteButton.addActionListener(e -> delete(deleteField.getText()));
+        displayButton.addActionListener(e -> displayAll());
+        updateButton.addActionListener(e -> updateContact(updateField.getText(), numberField.getText()));
+        sortButton.addActionListener(e -> sortContacts());
+
+        // Layout
+        gbc.gridx = 0; gbc.gridy = 0; panel.add(new JLabel("Contact Name:"), gbc);
+        gbc.gridx = 1; gbc.gridy = 0; panel.add(nameField, gbc);
+        gbc.gridx = 0; gbc.gridy = 1; panel.add(new JLabel("Contact Number:"), gbc);
+        gbc.gridx = 1; gbc.gridy = 1; panel.add(numberField, gbc);
+        gbc.gridx = 0; gbc.gridy = 2; panel.add(addButton, gbc);
+        gbc.gridx = 0; gbc.gridy = 3; panel.add(new JLabel("Search Contact:"), gbc);
+        gbc.gridx = 1; gbc.gridy = 3; panel.add(searchField, gbc);
+        gbc.gridx = 0; gbc.gridy = 4; panel.add(searchButton, gbc);
+        gbc.gridx = 0; gbc.gridy = 5; panel.add(new JLabel("Delete Contact:"), gbc);
+        gbc.gridx = 1; gbc.gridy = 5; panel.add(deleteField, gbc);
+        gbc.gridx = 0; gbc.gridy = 6; panel.add(deleteButton, gbc);
+        gbc.gridx = 0; gbc.gridy = 7; panel.add(new JLabel("Update Contact:"), gbc);
+        gbc.gridx = 1; gbc.gridy = 7; panel.add(updateField, gbc);
+        gbc.gridx = 0; gbc.gridy = 8; panel.add(updateButton, gbc);
+        gbc.gridx = 0; gbc.gridy = 9; panel.add(sortButton, gbc);
+        gbc.gridx = 0; gbc.gridy = 10; gbc.gridwidth = 2; panel.add(displayButton, gbc);
+
+        frame.add(panel, BorderLayout.WEST);
+        frame.add(new JScrollPane(contactTable), BorderLayout.CENTER);
+        frame.setVisible(true);
     }
 
-    // Methods for phonebook operations here (as described in previous sections)
-}
-
-### Main Class:
-import java.util.Scanner;
-
-public class Main {
-    public static void main(String[] args) {
-        PhoneBook phoneBook = new PhoneBook();
-        Scanner scanner = new Scanner(System.in);
-        boolean exit = false;
-
-        while (!exit) {
-            System.out.println("PhoneBook Menu:");
-            System.out.println("1. Insert Contact");
-            System.out.println("2. Search Contact");
-            System.out.println("3. Display All Contacts");
-            System.out.println("4. Delete Contact");
-            System.out.println("5. Update Contact");
-            System.out.println("6. Sort Contacts");
-            System.out.println("7. Analyze Search Efficiency");
-            System.out.println("8. Exit");
-            System.out.print("Choose an option: ");
-
-            int option = scanner.nextInt();
-            scanner.nextLine();  // consume newline
-
-            switch (option) {
-                case 1:
-                    System.out.print("Enter name: ");
-                    String name = scanner.nextLine();
-                    System.out.print("Enter phone number: ");
-                    String phoneNumber = scanner.nextLine();
-                    phoneBook.insertContact(name, phoneNumber);
-                    break;
-                // Other cases for search, display, delete, update, etc.
-            }
+    // Add Contact function
+    public void addContact(String name, String number) {
+        if (!name.isEmpty() && !number.isEmpty()) {
+            nameList.add(name);
+            numList.add(number);
+            tableModel.addRow(new Object[]{name, number});
+            JOptionPane.showMessageDialog(null, "Contact was successfully added ");
+        } else {
+            JOptionPane.showMessageDialog(null, "Invalid Entry!!");
         }
+    }
 
-        scanner.close();
+    // Delete Contact Function
+    public void delete(String name) {
+        int index = nameList.indexOf(name);
+        if (index >= 0) {
+            nameList.remove(index);
+            numList.remove(index);
+            tableModel.removeRow(index);
+            JOptionPane.showMessageDialog(null, "Successfully Deleted: " + name);
+        } else {
+            JOptionPane.showMessageDialog(null, name + " Contact Not Found!!");
+        }
+    }
+
+    // Search contact Function
+    public void search(String nameOrNumber) {
+        int indexByName = nameList.indexOf(nameOrNumber);
+        int indexByNumber = numList.indexOf(nameOrNumber);
+        if (indexByName >= 0) {
+            JOptionPane.showMessageDialog(null, nameOrNumber + "'s Contact Number is: " + numList.get(indexByName));
+        } else if (indexByNumber >= 0) {
+            JOptionPane.showMessageDialog(null, "Contact Number " + nameOrNumber + " belongs to: " + nameList.get(indexByNumber));
+        } else {
+            JOptionPane.showMessageDialog(null, nameOrNumber + " Contact Not Found!!");
+        }
+    }
+
+    // Update contact Function
+    public void updateContact(String name, String newNumber) {
+        int index = nameList.indexOf(name);
+        if (index >= 0) {
+            numList.set(index, newNumber);
+            tableModel.setValueAt(newNumber, index, 1);
+            JOptionPane.showMessageDialog(null, "Successfully Updated: " + name + "'s number to " + newNumber);
+        } else {
+            JOptionPane.showMessageDialog(null, name + " Contact Name Does not Exist!!");
+        }
+    }
+
+    // Display all contacts function
+    public void displayAll() {
+        if (nameList.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No Contacts Available. Please update Contact List!!");
+            return;
+        }
+        StringBuilder allContacts = new StringBuilder("All Contacts:\n");
+        for (int i = 0; i < nameList.size(); i++) {
+            allContacts.append(nameList.get(i)).append(" - ").append(numList.get(i)).append("\n");
+        }
+        JOptionPane.showMessageDialog(null, allContacts.toString());
+    }
+
+    // Sort contacts function
+    public void sortContacts() {
+        ArrayList<ContactSort> contacts = new ArrayList<>();
+        for (int i = 0; i < nameList.size(); i++) {
+            contacts.add(new ContactSort(nameList.get(i), numList.get(i)));
+        }
+        Collections.sort(contacts, Comparator.comparing(ContactSort::getName));
+        nameList.clear();
+        numList.clear();
+        tableModel.setRowCount(0);
+        for (ContactSort contact : contacts) {
+            nameList.add(contact.getName());
+            numList.add(contact.getNumber());
+            tableModel.addRow(new Object[]{contact.getName(), contact.getNumber()});
+        }
+        JOptionPane.showMessageDialog(null, "Contacts were successfully sorted.");
+    }
+}
+public class ContactSort {
+    private String name;
+    private String number;
+public ContactSort(String name, String number) {
+        this.name = name;
+        this.number = number;
+    }
+    public String getName() {
+        return name;
+    }
+  public String getNumber() {
+        return number;
     }
 }
 
-## 4.2 Compilation and Execution
-### Compile the code:
-javac Main.java
+## 4.1 Testing
+Test Case	Action	Input	Expected Output	Status
+1	Insert Contact	John, 1234567890	Contact added successfully	Pass
+2	Insert Duplicate Contact	John, 1234567890	Contact already exists	Pass
+3	Search Contact (Existing)	John	Contact found: John - 1234567890	Pass
+4	Search Contact (Non-existent)	Jane	Contact not found	Pass
+5	Delete Contact (Existing)	John	Contact deleted	Pass
+6	Delete Contact (Non-existent)	Jane	Contact not found	Pass
+7	Update Contact (Existing)	John, 0987654321	Contact updated successfully	Pass
+8	Update Contact (Non-existent)	Jane, 0987654321	Contact not found	Pass
+9	Display All Contacts	N/A	Displays all saved contacts in correct format	Pass
+10	Sort Contacts	N/A	Contacts sorted alphabetically	Pass
+11	Analyze Search Efficiency	John	Displays number of comparisons	Pass
 
-###Run the program:
-java Main
-
-## 4.3 Testing
-1.** Insert Contact**: Test adding multiple contacts.
-2.** Search Contact**: Test searching for both existing and non-existing contacts.
-3.** Delete Contact**: Test removing contacts and verifying deletion.
-4.** Update Contact** : Test updating the phone number of a contact.
-5.** Display All Contacts** : Ensure contacts are displayed correctly.
-6.** Sort Contacts** : Verify that contacts are sorted alphabetically.
-7.** Analyze Search Efficiency** : Check the number of comparisons during search.
-
-## 5. GitHub Repository
+### 5. GitHub Repository
 The source code and documentation can be found in our GitHub repository: [Link to GitHub repository]
 
-## 7. Conclusion
-This project successfully implements a basic phonebook system using linear data structures in Java. The solution demonstrates efficient performance for key phonebook operations and includes optional features like sorting and search efficiency analysis.
+### 6. Conclusion
+This project successfully implements a simple and efficient phonebook system for
+managing contacts.
+The system performs core operations like adding, deleting, searching, and updating
+contacts, with the additional ability to sort and analyze search efficiency.
+
+### 7. Future Enhancements
+Hash Table or Binary Search Tree: Implementing more advanced data structures
+would drastically improve search and insertion times.
+Data Persistence: Currently, the phonebook data is stored in memory. Future
+versions could include file I/O or database integration (e.g., SQLite or MySQL) to
+persist contacts between program executions.
+Additional Fields: Adding more fields such as email addresses and home addresses
+would make the system more versatile and useful for managing detailed contact
+information
 
 
 

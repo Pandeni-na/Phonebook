@@ -103,4 +103,104 @@ Function AnalyzeSearchEfficiency(phonebook, name):
             Return
     Display "Contact not found. Number of comparisons: ", comparisonCount
 
+ ## 4. Practical Implementation (Section B)
+
+### Contact Class:
+class Contact {
+    String name;
+    String phoneNumber;
+
+    public Contact(String name, String phoneNumber) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "Name: " + name + ", Phone: " + phoneNumber;
+    }
+}
+
+### PhoneBook Class:
+import java.util.ArrayList;
+import java.util.List;
+
+public class PhoneBook {
+    List<Contact> contacts;
+
+    public PhoneBook() {
+        contacts = new ArrayList<>();
+    }
+
+    // Methods for phonebook operations here (as described in previous sections)
+}
+
+### Main Class:
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        PhoneBook phoneBook = new PhoneBook();
+        Scanner scanner = new Scanner(System.in);
+        boolean exit = false;
+
+        while (!exit) {
+            System.out.println("PhoneBook Menu:");
+            System.out.println("1. Insert Contact");
+            System.out.println("2. Search Contact");
+            System.out.println("3. Display All Contacts");
+            System.out.println("4. Delete Contact");
+            System.out.println("5. Update Contact");
+            System.out.println("6. Sort Contacts");
+            System.out.println("7. Analyze Search Efficiency");
+            System.out.println("8. Exit");
+            System.out.print("Choose an option: ");
+
+            int option = scanner.nextInt();
+            scanner.nextLine();  // consume newline
+
+            switch (option) {
+                case 1:
+                    System.out.print("Enter name: ");
+                    String name = scanner.nextLine();
+                    System.out.print("Enter phone number: ");
+                    String phoneNumber = scanner.nextLine();
+                    phoneBook.insertContact(name, phoneNumber);
+                    break;
+                // Other cases for search, display, delete, update, etc.
+            }
+        }
+
+        scanner.close();
+    }
+}
+
+## 4.2 Compilation and Execution
+### Compile the code:
+javac Main.java
+
+###Run the program:
+java Main
+
+## 4.3 Testing
+1.** Insert Contact**: Test adding multiple contacts.
+2.** Search Contact**: Test searching for both existing and non-existing contacts.
+3.** Delete Contact**: Test removing contacts and verifying deletion.
+4.** Update Contact** : Test updating the phone number of a contact.
+5.** Display All Contacts** : Ensure contacts are displayed correctly.
+6.** Sort Contacts** : Verify that contacts are sorted alphabetically.
+7.** Analyze Search Efficiency** : Check the number of comparisons during search.
+
+## 5. GitHub Repository
+The source code and documentation can be found in our GitHub repository: [Link to GitHub repository]
+
+## 7. Conclusion
+This project successfully implements a basic phonebook system using linear data structures in Java. The solution demonstrates efficient performance for key phonebook operations and includes optional features like sorting and search efficiency analysis.
+
+
+
+
+
+
+
 

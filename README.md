@@ -47,7 +47,7 @@ Additionally, search efficiency analysis is performed by analyzing the number of
 ## 2. Technologies Used
 - **Programming Language**: Java
 - **Data Structure**: ArrayList (for storing contact objects)
-- **Development Environment**: IntelliJ IDEA, Eclipse, or any other Java IDE
+- **Development Environment**: IntelliJ IDEA
 - **Version Control**: Git and GitHub for collaboration
 
 ---
@@ -156,7 +156,6 @@ public class PhoneBook {
         frame.add(new JScrollPane(contactTable), BorderLayout.CENTER);
         frame.setVisible(true);
     }
-
     // Add Contact function
     public void addContact(String name, String number) {
         if (!name.isEmpty() && !number.isEmpty()) {

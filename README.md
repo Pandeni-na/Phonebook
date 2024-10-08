@@ -53,15 +53,29 @@ Additionally, search efficiency analysis is performed by analyzing the number of
 ---
 
 ## 3. Algorithm Design (Section A)
+### 3.1 Modules
 
-### 3.1 Pseudocode
+
+
+
+
+
+### 3.2 Functions
+
+
+
+
+
+
+
+### 3.3 Pseudocode
 
 
 
       
-}
 
-### 3.2 Flowchart
+
+### 3.4 Flowchart
 
 ### 4. Practical Implementation (Section B)
 import javax.swing.*;

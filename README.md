@@ -309,12 +309,14 @@ Display(Name[], Number[]) {
 [DSA Flowchart.drawio (1).pdf](https://github.com/user-attachments/files/17356280/DSA.Flowchart.drawio.1.pdf)
 
 ### 4. Practical Implementation (Section B)
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+
 
 public class PhoneBook {
     public static void main(String[] args) {
@@ -335,11 +337,11 @@ public class PhoneBook {
         JFrame frame = new JFrame("Phone Book");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(700, 450);
+
         JPanel panel = new JPanel();
         panel.setLayout(new GridBagLayout());
-        panel.setBackground(new Color(246, 245, 241));
-
         GridBagConstraints gbc = new GridBagConstraints();
+        panel.setBackground(new Color(221, 220, 220));
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(5, 5, 5, 5);
 
@@ -353,24 +355,23 @@ public class PhoneBook {
         tableModel = new DefaultTableModel(new String[]{"Name", "Number"}, 0);
         contactTable = new JTable(tableModel);
         contactTable.setFillsViewportHeight(true);
-        contactTable.setBackground(new Color(248, 238, 238));
+        contactTable.setBackground(new Color(221, 220, 220, 181));
         contactTable.setFont(new Font("Arial", Font.PLAIN, 14));
-        contactTable.getTableHeader().setBackground(new Color(244, 243, 243));
+        contactTable.getTableHeader().setBackground(new Color(104, 163, 214));
 
-        // Buttons for each action
+        //Creates buttons and sets button color
         JButton addButton = new JButton("Add Contact");
+        addButton.setBackground(new Color(93, 213, 83, 224));
         JButton searchButton = new JButton("Search \uD83D\uDD0D");
-        JButton deleteButton = new JButton("\uD83D\uDDD1 Delete");
+        searchButton.setBackground(new Color(33, 129, 209, 158));
+        JButton deleteButton = new JButton("Delete \uD83D\uDDD1");
+        deleteButton.setBackground(new Color(216, 80, 80));
         JButton displayButton = new JButton("Display All");
-        JButton updateButton = new JButton(" ⟳ Update Contact");
-        JButton sortButton = new JButton("\uD83D\uDDD2 Sort");
-
-        addButton.setBackground(new Color(93, 213, 83));
-        searchButton.setBackground(new Color(37, 65, 205));
-        deleteButton.setBackground(new Color(243, 6, 6));
-        displayButton.setBackground(new Color(253, 118, 3, 253));
-        updateButton.setBackground(new Color(144, 9, 154));
-        sortButton.setBackground(new Color(21, 246, 6, 255));
+        displayButton.setBackground(new Color(244, 210, 70, 223));
+        JButton updateButton = new JButton("Update Contact ⟳ ");
+        updateButton.setBackground(new Color(79, 148, 205, 142));
+        JButton sortButton = new JButton("Sort \uD83D\uDDD2");
+        sortButton.setBackground(new Color(33, 129, 209, 157));
 
         addButton.addActionListener(e -> addContact(nameField.getText(), numberField.getText()));
         searchButton.addActionListener(e -> search(searchField.getText()));
@@ -379,7 +380,7 @@ public class PhoneBook {
         updateButton.addActionListener(e -> updateContact(updateField.getText(), numberField.getText()));
         sortButton.addActionListener(e -> sortContacts());
 
-        // Layout
+        //Text and Text field layout
         gbc.gridx = 0; gbc.gridy = 0; panel.add(new JLabel("Contact Name:"), gbc);
         gbc.gridx = 1; gbc.gridy = 0; panel.add(nameField, gbc);
         gbc.gridx = 0; gbc.gridy = 1; panel.add(new JLabel("Contact Number:"), gbc);
@@ -401,6 +402,7 @@ public class PhoneBook {
         frame.add(new JScrollPane(contactTable), BorderLayout.CENTER);
         frame.setVisible(true);
     }
+
     // Add Contact function
     public void addContact(String name, String number) {
         if (!name.isEmpty() && !number.isEmpty()) {
@@ -430,6 +432,7 @@ public class PhoneBook {
     public void search(String nameOrNumber) {
         int indexByName = nameList.indexOf(nameOrNumber);
         int indexByNumber = numList.indexOf(nameOrNumber);
+
         if (indexByName >= 0) {
             JOptionPane.showMessageDialog(null, nameOrNumber + "'s Contact Number is: " + numList.get(indexByName));
         } else if (indexByNumber >= 0) {
@@ -451,19 +454,6 @@ public class PhoneBook {
         }
     }
 
-    // Display all contacts function
-    public void displayAll() {
-        if (nameList.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No Contacts Available. Please update Contact List!!");
-            return;
-        }
-        StringBuilder allContacts = new StringBuilder("All Contacts:\n");
-        for (int i = 0; i < nameList.size(); i++) {
-            allContacts.append(nameList.get(i)).append(" - ").append(numList.get(i)).append("\n");
-        }
-        JOptionPane.showMessageDialog(null, allContacts.toString());
-    }
-
     // Sort contacts function
     public void sortContacts() {
         ArrayList<ContactSort> contacts = new ArrayList<>();
@@ -474,28 +464,53 @@ public class PhoneBook {
         nameList.clear();
         numList.clear();
         tableModel.setRowCount(0);
+
+
         for (ContactSort contact : contacts) {
             nameList.add(contact.getName());
             numList.add(contact.getNumber());
             tableModel.addRow(new Object[]{contact.getName(), contact.getNumber()});
         }
+
         JOptionPane.showMessageDialog(null, "Contacts were successfully sorted.");
     }
+
+    // Display all contacts function
+    public void displayAll() {
+        if (nameList.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "No Contacts Available. Please update Contact List!!");
+            return;
+        }
+
+        StringBuilder allContacts = new StringBuilder("All Contacts:\n");
+        for (int i = 0; i < nameList.size(); i++) {
+            allContacts.append(nameList.get(i)).append(" - ").append(numList.get(i)).append("\n");
+        }
+        JOptionPane.showMessageDialog(null, allContacts.toString());
+    }
+
+
 }
-public class ContactSort {
+
+class ContactSort {
     private String name;
     private String number;
-public ContactSort(String name, String number) {
+
+    public ContactSort(String name, String number) {
         this.name = name;
         this.number = number;
     }
+
     public String getName() {
         return name;
     }
-  public String getNumber() {
+
+    public String getNumber() {
         return number;
     }
 }
+
+
 
 ## 4.1 Testing
 Test Case	Action	Input	Expected Output	Status

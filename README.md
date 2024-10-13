@@ -116,19 +116,93 @@ ContactSort:
 A simple class to hold a contact's name and number for sorting purposes.
 It contains a constructor, a getter for the name, and a getter for the number.
 
-
-
-
-
-
-
-
 ### 3.3 Pseudocode
-
-
-
-      
-
+Start
+String [] Name = new String []
+Int [] Number = new int []
+add()
+search()
+delete()
+sort()
+update()
+display()
+End
+Add ( Name[], Number[]) {
+Name[], Number[] = -1 // -1 shows that Name and Number are empty
+Display “Insert name, number to add” //prompts user
+Get name, number //read input
+If ( Name & Number != -1) //checks if input is empty
+Display “Contact was successfully added”
+Else
+Display “Invalid Entry”
+}
+Search (Name [], Number[]) {
+Display “ name or number to search” //Prompts user
+Get name or number //Reads input
+for ( i = 0; i < n; i++ )
+if( Name[] == searchName) //When searching with Name
+Display name+” ‘s contact number is” + number
+break
+Elseif ( Number[] == searchNumber) //when searching with number
+Display “Contact number”+number+ “belongs to” +name
+break
+Else 
+Display “Contact not found”
+Endif
+Endif
+Endfor
+}
+Delete ( Name[] ) {
+Display “insert name to delete” //prompts user
+Get name //reads input
+Temp = -1 //Empty container
+For ( i = 0; i < n; i++ )
+If ( Name[i] == name ) //Comparison
+Name[i] = temp //Replaces Name with empty container
+Display “ Successfully deleted ” +name
+break
+Else
+Display “Contact not found”
+Endif
+Endfor
+}
+Sort( ) {
+for ( i = 0 ; i < n; i++ ) //passes
+first = i //makes i first element
+for ( j = i+1; j < n; j++)
+if ( Name[J] < Name [first] ) //Comparison
+first = j
+endif
+Endfor
+Temp = Name[i] //Swapping
+Name[i] = Name[first]
+Name[first] = temp
+Endfor
+}
+update( Name[] ) {
+Display “Insert name to update” //Prompt user
+Get name //read input
+for ( i = 0; i < n; i++ )
+if( Name[] == updateName ) //Compare
+Prompt for newNumber
+Get newNumber
+temp = newNumber //temp variable with new number
+newNumber=Number[] //Swapping
+Number[] = temp
+Display “ Contact successfully updated”
+Else
+Display “ Contact name does not exist ”
+Endif
+Endfor
+}
+Display( ) {
+For (i = 0; i < n; i++)
+If( Name[] & Number[] = -1) //Checks if Array is empty
+Display “No Contacts available”
+Endif
+Display “All contacts: /n”
+Endfor
+}
 
 ### 3.4 Flowchart
 

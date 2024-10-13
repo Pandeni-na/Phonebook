@@ -111,8 +111,8 @@ Creates a list of ContactSort objects to hold the contacts temporarily.
 Clears the existing nameList and numList, and updates the tableModel.
 Displays a success message after sorting.
 
-Helper Class: ContactSort
 ContactSort:
+
 A simple class to hold a contact's name and number for sorting purposes.
 It contains a constructor, a getter for the name, and a getter for the number.
 

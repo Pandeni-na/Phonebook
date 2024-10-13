@@ -54,10 +54,73 @@ Additionally, search efficiency analysis is performed by analyzing the number of
 
 ## 3. Algorithm Design (Section A)
 ### 3.1 Modules
+The code uses javax.swing., javax.swing.table.DefaultTableModel, java.awt., and java.util.* libraries. These are imported to create the graphical user interface (GUI), handle table data, layout the components, and work with lists and sorting.
+nameList and numList:
+        store contact names and phone numbers respectively.
+JTable and DefaultTableModel: 
+JTable displays the contacts in a table 
+DefaultTableModel manages the data inside the table.
+nameField: 
+A text box where the user types the name of a contact when adding, searching, deleting, or updating a contact.
+ numberField: 
+A text box where the user enters the phone number of a contact when adding or updating a contact.
+             searchField: 
+A text box where the user types the name or phone number they want to search for in the phonebook.
+ deleteField:
+ A text box where the user types the name of the contact they want to remove from the phonebook.
+updateField: 
+A text box where the user enters the name of the contact they want to update with a new phone number.
+Constructor: 
+The PhoneBook() constructor sets up the main window (JFrame) and GUI components like buttons, labels, and text fields. 
+It also defines how these components are arranged (using GridBagLayout) and assigns background colors.
+The program has buttons for different actions:
+Add Contact Method (addContact()):
+This method adds a new contact (name and phone number) to the phonebook.
+First, the method checks if the user has entered something in both the "Name" field and the "Number" field.
+If both fields are filled, it saves the name in the nameList and the phone number in the numList.
+Then, it adds this new contact to the table that’s displayed on the screen.
+If either field is empty, it shows a pop-up message (error) to tell the user that the entry is invalid.
 
+Delete Contact Method (delete()):
+This method deletes a contact from the phonebook based on the name.
+The user types the name of the contact they want to delete into the deleteField.
+The method searches for this name in the nameList.
+If it finds the name, it deletes that name and the matching phone number from both the nameList and numList.
+It also removes this contact from the table displayed on the screen.
+If the name isn’t found, it shows a pop-up message saying that the contact was not found.
 
+ Search Method (search()):
+This method searches for a contact by either name or phone number.
+The user enters a name or phone number into the searchField.
+The method checks if the entry matches any names in the nameList or numbers in the numList.
+If a match is found by name, it shows a pop-up message with the contact’s phone number.
+If a match is found by phone number, it shows a pop-up message with the contact’s name.
+If nothing matches, it shows a pop-up saying that the contact was not found.
 
+Update Contact Method (updateContact()):
+This method updates the phone number of an existing contact.
+The user types the name of the contact they want to update into the updateField, and the new phone number into the numberField.
+The method looks for the contact’s name in the nameList.
+If the name is found, it updates that contact’s phone number in the numList and also updates the table displayed on the screen.
+If the name isn’t found, it shows a pop-up message telling the user that the contact does not exist.
 
+       Display All Method (displayAll()):
+This method displays all the saved contacts in the phonebook.
+The method checks if there are any contacts in the phonebook.
+If there are contacts, it collects all the names and numbers from nameList and numList and shows them in a pop-up message.
+If there are no contacts, it shows a pop-up telling the user that the contact list is empty.
+
+Sort Contacts Method (sortContacts()):
+This method sorts all the contacts alphabetically by their names.
+The method first creates a temporary list of contact objects (name and number pairs) using the ContactSort class.
+It then sorts this list alphabetically by name.
+After sorting, it clears the original nameList and numList, and refills them with the sorted names and numbers.
+It also updates the table to show the contacts in the new sorted order.
+Finally, it shows a pop-up message to tell the user that the contacts have been successfully sorted.
+        ContactSort Class:
+This class is used to temporarily hold both the name and the phone number of a contact when sorting the list.
+Each time a contact (name and number) is added, the program creates a ContactSort object that stores the name and number together.
+When sorting, the program uses this class to compare the names and arrange them alphabetically.
 
 
 ### 3.2 Functions

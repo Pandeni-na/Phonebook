@@ -117,92 +117,136 @@ A simple class to hold a contact's name and number for sorting purposes.
 It contains a constructor, a getter for the name, and a getter for the number.
 
 ### 3.3 Pseudocode
+
 Start
-String [] Name = new String []
-Int [] Number = new int []
-add()
-search()
-delete()
-sort()
-update()
-display()
+    String[] Name = new String[n]     // Array to store names
+    int[] Number = new int[n]         // Array to store numbers
+
+    add()
+    search()
+    delete()
+    sort()
+    update()
+    display()
 End
-Add ( Name[], Number[]) {
-Name[], Number[] = -1 // -1 shows that Name and Number are empty
-Display “Insert name, number to add” //prompts user
-Get name, number //read input
-If ( Name & Number != -1) //checks if input is empty
-Display “Contact was successfully added”
-Else
-Display “Invalid Entry”
+
+// Function to add a contact
+Add(Name[], Number[]) {
+    // Initialize array with -1 to indicate empty slots
+    for (i = 0; i < n; i++) {
+        Name[i] = -1
+        Number[i] = -1
+    }
+
+    Display "Insert name and number to add" // Prompt user
+    Get name, number // Read user input
+
+    if (name != -1 && number != -1) { // Check for valid input
+        for (i = 0; i < n; i++) {
+            if (Name[i] == -1) { // Find the first empty slot
+                Name[i] = name
+                Number[i] = number
+                Display "Contact was successfully added"
+                break
+            }
+        }
+    } else {
+        Display "Invalid Entry"
+    }
 }
-Search (Name [], Number[]) {
-Display “ name or number to search” //Prompts user
-Get name or number //Reads input
-for ( i = 0; i < n; i++ )
-if( Name[] == searchName) //When searching with Name
-Display name+” ‘s contact number is” + number
-break
-Elseif ( Number[] == searchNumber) //when searching with number
-Display “Contact number”+number+ “belongs to” +name
-break
-Else 
-Display “Contact not found”
-Endif
-Endif
-Endfor
+
+// Function to search for a contact
+Search(Name[], Number[]) {
+    Display "Enter name or number to search" // Prompt user
+    Get searchValue // User input
+
+    for (i = 0; i < n; i++) {
+        if (Name[i] == searchValue) { // Searching by name
+            Display Name[i] + "'s contact number is " + Number[i]
+            break
+        } else if (Number[i] == searchValue) { // Searching by number
+            Display "Contact number " + Number[i] + " belongs to " + Name[i]
+            break
+        } else {
+            Display "Contact not found"
+        }
+    }
 }
-Delete ( Name[] ) {
-Display “insert name to delete” //prompts user
-Get name //reads input
-Temp = -1 //Empty container
-For ( i = 0; i < n; i++ )
-If ( Name[i] == name ) //Comparison
-Name[i] = temp //Replaces Name with empty container
-Display “ Successfully deleted ” +name
-break
-Else
-Display “Contact not found”
-Endif
-Endfor
+
+// Function to delete a contact
+Delete(Name[], Number[]) {
+    Display "Insert name to delete" // Prompt user
+    Get name // User input
+
+    for (i = 0; i < n; i++) {
+        if (Name[i] == name) { // Find the contact by name
+            Name[i] = -1 // Mark the slot as empty
+            Number[i] = -1
+            Display "Successfully deleted " + name
+            break
+        } else {
+            Display "Contact not found"
+        }
+    }
 }
-Sort( ) {
-for ( i = 0 ; i < n; i++ ) //passes
-first = i //makes i first element
-for ( j = i+1; j < n; j++)
-if ( Name[J] < Name [first] ) //Comparison
-first = j
-endif
-Endfor
-Temp = Name[i] //Swapping
-Name[i] = Name[first]
-Name[first] = temp
-Endfor
+
+// Function to sort contacts alphabetically by name
+Sort() {
+    for (i = 0; i < n; i++) {
+        first = i // Assume the first element is the smallest
+
+        for (j = i + 1; j < n; j++) {
+            if (Name[j] < Name[first]) { // Compare names
+                first = j
+            }
+        }
+
+        // Swap the elements
+        tempName = Name[i]
+        tempNumber = Number[i]
+
+        Name[i] = Name[first]
+        Number[i] = Number[first]
+
+        Name[first] = tempName
+        Number[first] = tempNumber
+    }
 }
-update( Name[] ) {
-Display “Insert name to update” //Prompt user
-Get name //read input
-for ( i = 0; i < n; i++ )
-if( Name[] == updateName ) //Compare
-Prompt for newNumber
-Get newNumber
-temp = newNumber //temp variable with new number
-newNumber=Number[] //Swapping
-Number[] = temp
-Display “ Contact successfully updated”
-Else
-Display “ Contact name does not exist ”
-Endif
-Endfor
+
+// Function to update a contact's number
+Update(Name[], Number[]) {
+    Display "Insert name to update" // Prompt user
+    Get name // User input
+
+    for (i = 0; i < n; i++) {
+        if (Name[i] == name) { // Find the contact by name
+            Display "Insert new number"
+            Get newNumber // Read new number
+            Number[i] = newNumber // Update number
+            Display "Contact successfully updated"
+            break
+        } else {
+            Display "Contact name does not exist"
+        }
+    }
 }
-Display( ) {
-For (i = 0; i < n; i++)
-If( Name[] & Number[] = -1) //Checks if Array is empty
-Display “No Contacts available”
-Endif
-Display “All contacts: /n”
-Endfor
+
+// Function to display all contacts
+Display(Name[], Number[]) {
+    empty = true
+
+    for (i = 0; i < n; i++) {
+        if (Name[i] != -1 && Number[i] != -1) { // Check if the slot is not empty
+            Display "Name: " + Name[i] + ", Number: " + Number[i]
+            empty = false
+        }
+    }
+
+    if (empty) {
+        Display "No Contacts available"
+    }
 }
+
 
 ### 3.4 Flowchart
 

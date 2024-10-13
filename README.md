@@ -130,7 +130,6 @@ Start
     display()
 End
 
-// Function to add a contact
 Add(Name[], Number[]) {
     // Initialize array with -1 to indicate empty slots
     for (i = 0; i < n; i++) {
@@ -155,7 +154,6 @@ Add(Name[], Number[]) {
     }
 }
 
-// Function to search for a contact
 Search(Name[], Number[]) {
     Display "Enter name or number to search" // Prompt user
     Get searchValue // User input
@@ -173,7 +171,6 @@ Search(Name[], Number[]) {
     }
 }
 
-// Function to delete a contact
 Delete(Name[], Number[]) {
     Display "Insert name to delete" // Prompt user
     Get name // User input
@@ -190,7 +187,6 @@ Delete(Name[], Number[]) {
     }
 }
 
-// Function to sort contacts alphabetically by name
 Sort() {
     for (i = 0; i < n; i++) {
         first = i // Assume the first element is the smallest
@@ -213,7 +209,6 @@ Sort() {
     }
 }
 
-// Function to update a contact's number
 Update(Name[], Number[]) {
     Display "Insert name to update" // Prompt user
     Get name // User input
@@ -231,7 +226,6 @@ Update(Name[], Number[]) {
     }
 }
 
-// Function to display all contacts
 Display(Name[], Number[]) {
     empty = true
 

@@ -35,7 +35,7 @@ Additionally, search efficiency analysis is performed by analyzing the number of
 
 ## 1. Project Objectives
 1. **Insert Contact**: Add a new contact to the phonebook.
-2. **Search Contact**: Search for a contact by name.
+2. **Search Contact**: Search for a contact by name or number.
 3. **Delete Contact**: Remove a contact from the phonebook.
 4. **Update Contact**: Update the phone number of an existing contact.
 5. **Display All Contacts**: Display all contacts in the phonebook.
@@ -61,6 +61,61 @@ Additionally, search efficiency analysis is performed by analyzing the number of
 
 
 ### 3.2 Functions
+
+Main Class: PhoneBook
+main(String[] args): The entry point of the application. It initializes the Swing GUI on the Event Dispatch Thread (EDT) using SwingUtilities.invokeLater.
+
+Constructor: PhoneBook():
+
+Sets up the main JFrame, panels, labels, text fields, buttons, and the contact table.
+Configures layout using GridBagLayout to arrange components.
+Initializes the contact list with ArrayList for names and numbers.
+Adds action listeners to buttons to handle various operations (add, search, delete, update, display, sort).
+Functions
+
+addContact(String name, String number):
+
+Adds a new contact to the phone book.
+Checks if the name and number fields are not empty.
+Updates the nameList, numList, and tableModel with the new contact.
+Shows a confirmation message or an error if the entry is invalid.
+
+delete(String name):
+
+Deletes a contact by name.
+Finds the index of the contact in nameList.
+Removes the contact from both nameList and numList, and updates the tableModel.
+Displays a success message or an error if the contact is not found.
+
+search(String nameOrNumber):
+
+Searches for a contact by either name or number.
+Checks if the name or number exists in the lists.
+Displays the corresponding contact number or name in a message dialog, or shows an error if not found.
+
+updateContact(String name, String newNumber):
+
+Updates a contact's phone number.
+Finds the contact by name and updates its number in numList and tableModel.
+Displays a success message or an error if the contact does not exist.
+
+displayAll():
+
+Displays all contacts in a message dialog.
+Constructs a string with all names and numbers, or shows an error if there are no contacts available.
+
+sortContacts():
+
+Sorts the contacts by name in alphabetical order.
+Creates a list of ContactSort objects to hold the contacts temporarily.
+Clears the existing nameList and numList, and updates the tableModel.
+Displays a success message after sorting.
+
+Helper Class: ContactSort
+ContactSort:
+A simple class to hold a contact's name and number for sorting purposes.
+It contains a constructor, a getter for the name, and a getter for the number.
+
 
 
 

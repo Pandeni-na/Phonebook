@@ -7,7 +7,7 @@
 - Amenenge Negumbo 224065963
 - Pandeni Kakwambi 224066544
 - Zia Phaswana 224034812
-- Reinhold Haufiku 22401695
+- Reinhold Haufiku 
 - Kelibongile Tholana 224091808 
 
 ## Project Overview
